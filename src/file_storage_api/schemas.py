@@ -1,6 +1,6 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
-from typing import Optional, List
+from typing import Optional, Literal
 from enum import Enum
 
 class UserRole(str, Enum):
@@ -15,10 +15,7 @@ class VisibilityLevel(str, Enum):
 
 class Token(BaseModel):
     access_token: str
-    token_type: str
-
-class TokenData(BaseModel):
-    username: Optional[str] = None
+    token_type: Literal["bearer"]
 
 class UserBase(BaseModel):
     username: str
@@ -29,37 +26,25 @@ class UserCreate(UserBase):
     password: str
     department_id: int
 
-class User(UserBase):
+class UserOut(UserBase):
     id: int
     department_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
-class UserRoleUpdate(BaseModel):
-    role: UserRole
-
-class FileBase(BaseModel):
-    name: str
-    visibility: VisibilityLevel
-
-class FileCreate(FileBase):
-    pass
-
-class FileInfo(FileBase):
-    id: int
-    size: int
-    content_type: str
-    owner_id: int
-    department_id: int
-    created_at: datetime
-
-    class Config:
-        orm_mode = True
-
-class FileMetadata(BaseModel):
+class FileMetadataOut(BaseModel):
     pages: Optional[int] = None
     author: Optional[str] = None
     title: Optional[str] = None
-    paragraphs: Optional[int] = None
-    tables: Optional[int] = None
+
+class FileOut(BaseModel):
+    id: int
+    name: str
+    size: int
+    visibility: VisibilityLevel
+    owner_id: int
+    metadata: Optional[FileMetadataOut] = None
+
+    class Config:
+        from_attributes = True

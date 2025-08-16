@@ -5,7 +5,6 @@ passlib[bcrypt]==1.7.4
 sqlalchemy==2.0.15
 psycopg2-binary==2.9.6
 alembic==1.11.1
-python-dotenv==1.0.0
 minio==7.1.15
 celery==5.2.7
 redis==4.5.5

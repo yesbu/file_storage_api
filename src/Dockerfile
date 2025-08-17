@@ -9,9 +9,9 @@ RUN pip install --upgrade pip \
 
 RUN python -m venv .venv
 
-COPY README.md README.md
-COPY poetry.lock poetry.lock
-COPY pyproject.toml pyproject.toml
+COPY ../README.md README.md
+COPY ../poetry.lock poetry.lock
+COPY ../pyproject.toml pyproject.toml
 COPY src/ ./src
 
 RUN poetry install --only main  # Без dev-зависимостей, по-современному!
@@ -27,9 +27,9 @@ COPY --from=builder /app/.venv /app/.venv
 RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
-COPY migrations/ ./migrations
+COPY ../migrations ./migrations
 COPY alembic.ini alembic.ini
-COPY entrypoint.sh entrypoint.sh
+COPY ../entrypoint.sh entrypoint.sh
 
 RUN chmod +x /app/entrypoint.sh
 

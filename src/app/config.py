@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     s3_access_key: str = Field(default="minioadmin", alias="S3_ACCESS_KEY")
     s3_secret_key: str = Field(default="minioadmin", alias="S3_SECRET_KEY")
     s3_secure: bool = Field(default=False, alias="S3_SECURE")
+    jwt_algorithm: str = "HS256"
+    refresh_token_expire_days: int = 30
     bootstrap_admin_email: str = Field(default="admin@example.com", alias="BOOTSTRAP_ADMIN_EMAIL")
     bootstrap_admin_password: str = Field(default="admin123", alias="BOOTSTRAP_ADMIN_PASSWORD")
     bootstrap_admin_department: str = Field(default="HQ", alias="BOOTSTRAP_ADMIN_DEPARTMENT")

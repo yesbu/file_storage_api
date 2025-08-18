@@ -15,6 +15,7 @@ from src.app.files.routes import router as files_router
 from src.app.users.routes import router as users_router
 from src.app.storage.minio_client import get_minio_client
 
+
 async def get_db():
     db = SessionLocal()
     try:
@@ -29,7 +30,6 @@ app = FastAPI(
     docs_url="/docs" if settings.debug else None,
     redoc_url=None
 )
-
 
 
 @app.get("/health", tags=["healthcheck"])
@@ -65,13 +65,15 @@ async def lifespan(app: FastAPI):
             select(User).where(User.email == settings.bootstrap_admin_email)
         )
         if not admin.scalar_one_or_none():
-            db.add(User(
-                email=settings.bootstrap_admin_email,
-                full_name="Admin",
-                department=settings.bootstrap_admin_department,
-                role=Role.ADMIN,
-                hashed_password=hash_password(settings.bootstrap_admin_password),
-            ))
+            db.add(
+                User(
+                    email=settings.bootstrap_admin_email,
+                    full_name="Admin",
+                    department=settings.bootstrap_admin_department,
+                    role=Role.ADMIN,
+                    hashed_password=hash_password(
+                        settings.bootstrap_admin_password),
+                ))
             await db.commit()
 
     minio = get_minio_client()

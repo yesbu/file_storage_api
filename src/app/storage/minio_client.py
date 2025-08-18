@@ -5,6 +5,7 @@ from ..config import settings
 
 logger = logging.getLogger(__name__)
 
+
 def get_minio_client():
     return Minio(
         endpoint=settings.minio_endpoint.split('://')[-1],
@@ -12,6 +13,7 @@ def get_minio_client():
         secret_key=settings.minio_secret_key,
         secure=settings.minio_secure
     )
+
 
 def ensure_bucket():
     try:

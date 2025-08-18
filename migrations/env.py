@@ -2,15 +2,13 @@ from logging.config import fileConfig
 from sqlalchemy.ext.asyncio import create_async_engine
 from alembic import context
 import asyncio
-
-# Добавьте импорт всех ваших моделей
-from src.app.auth.models import Base
-from src.app.files.models import *  # если есть другие модели
+from src.app.files.models import *
 
 config = context.config
 fileConfig(config.config_file_name)
 
 target_metadata = Base.metadata
+
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode."""
@@ -25,6 +23,7 @@ def run_migrations_offline():
     with context.begin_transaction():
         context.run_migrations()
 
+
 def do_run_migrations(connection):
     context.configure(
         connection=connection,
@@ -34,6 +33,7 @@ def do_run_migrations(connection):
 
     with context.begin_transaction():
         context.run_migrations()
+
 
 async def run_migrations_online():
     """Run migrations in 'online' mode."""

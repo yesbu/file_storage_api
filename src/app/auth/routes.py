@@ -20,3 +20,4 @@ async def login(payload: LoginIn, session: AsyncSession = Depends(get_session)):
 @router.get("/me", response_model=UserOut)
 async def me():
     raise HTTPException(status_code=501, detail="Use protected endpoints to obtain current user")
+

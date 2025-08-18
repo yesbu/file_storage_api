@@ -11,3 +11,4 @@ class User(Base):
     department: Mapped[str] = mapped_column(String(100), index=True, default="HQ")
     role: Mapped[Role] = mapped_column(SAEnum(Role), default=Role.USER)
     files = relationship("File", back_populates="owner")
+

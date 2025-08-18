@@ -8,7 +8,7 @@ from ..common.enums import Visibility, Role
 from .models import File as FileModel, FileMetadata
 from .schemas import FileOut, FileList, FileMetaOut
 from .service import validate_upload, store_file, MAX_SIZE
-from ..storage.s3 import get_presigned_url
+from ..storage.minio_client import get_presigned_url
 from .tasks import extract_metadata_task
 router = APIRouter(prefix="/files", tags=["files"])
 @router.post("/upload", response_model=FileOut)
@@ -90,3 +90,4 @@ async def delete_file(file_id: int, session: AsyncSession = Depends(get_session)
     await session.execute(delete(FileModel).where(FileModel.id == file_id))
     await session.commit()
     return {"status": "deleted"}
+

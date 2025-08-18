@@ -7,3 +7,4 @@ class Visibility(str, Enum):
     PRIVATE = "PRIVATE"
     DEPARTMENT = "DEPARTMENT"
     PUBLIC = "PUBLIC"
+

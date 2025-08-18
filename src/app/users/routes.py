@@ -43,3 +43,4 @@ async def list_department_users(session: AsyncSession = Depends(get_session), us
     else:
         res = await session.execute(select(User).where(User.department == user.department))
     return res.scalars().all()
+

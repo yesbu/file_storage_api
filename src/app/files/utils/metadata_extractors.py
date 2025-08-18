@@ -37,3 +37,4 @@ def extract_office_meta(stream: bytes, filename: str) -> dict:
             return extract_docx_meta_from_path(docx_path)
         else:
             return extract_docx_meta_from_path(in_path)
+

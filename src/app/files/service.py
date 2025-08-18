@@ -2,7 +2,7 @@ import uuid
 from fastapi import HTTPException, UploadFile
 from ..common.enums import Visibility, Role
 from ..auth.models import User
-from ..storage.s3 import put_object
+from ..storage.minio_client import put_object, get_presigned_url
 ALLOWED_TYPES_USER = {"application/pdf"}
 ALLOWED_TYPES_MANAGER = {"application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
 MAX_SIZE = {
@@ -25,3 +25,4 @@ def store_file(file: UploadFile, content: bytes) -> tuple[str, int]:
     key = f"{uuid.uuid4().hex}_{file.filename}"
     put_object(key, content, file.content_type or "application/octet-stream")
     return key, size
+

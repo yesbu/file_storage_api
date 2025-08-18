@@ -23,3 +23,4 @@ class FileMetadata(Base):
     file_id: Mapped[int] = mapped_column(ForeignKey("files.id", ondelete="CASCADE"), unique=True)
     raw: Mapped[dict] = mapped_column(JSON, default=dict)
     file = relationship("File", back_populates="metadata_rel")
+

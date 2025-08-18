@@ -18,3 +18,4 @@ class UserOut(UserBase):
 class LoginIn(BaseModel):
     email: EmailStr
     password: str
+

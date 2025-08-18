@@ -3,7 +3,7 @@ from sqlalchemy import select
 from ..database import SessionLocal
 from .models import File, FileMetadata
 from .utils.metadata_extractors import extract_pdf_meta, extract_office_meta
-from ..storage.s3 import s3_client
+from ..storage.minio_client import get_minio_client as s3_client
 from ..config import settings
 @shared_task
 def extract_metadata_task(file_id: int):
@@ -31,3 +31,4 @@ async def _extract_metadata_async(file_id: int):
             m = FileMetadata(file_id=f.id, raw=meta)
             session.add(m)
         await session.commit()
+
